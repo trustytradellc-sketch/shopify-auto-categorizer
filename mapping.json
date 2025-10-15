@@ -1,0 +1,77 @@
+{
+  "rules": [
+    {
+      "keywords": [
+        "perfume",
+        "eau de parfum",
+        "fragrance",
+        "parfum",
+        "cologne",
+        "delina",
+        "parfums de marly"
+      ],
+      "category": "Health & Beauty > Personal Care > Perfume & Cologne",
+      "tags": [
+        "perfume",
+        "fragrance"
+      ]
+    },
+    {
+      "keywords": [
+        "serum",
+        "retinol",
+        "hyaluronic",
+        "peptide",
+        "lancome",
+        "elemis",
+        "sk-ii",
+        "sk ii",
+        "image skincare",
+        "vital c",
+        "cream",
+        "moisturizer"
+      ],
+      "category": "Health & Beauty > Personal Care > Skin Care",
+      "tags": [
+        "skin-care"
+      ]
+    },
+    {
+      "keywords": [
+        "filter",
+        "everydrop",
+        "water filter",
+        "replacement filter",
+        "ice & water"
+      ],
+      "category": "Appliances > Water Filters & Filtration Systems > Water Filter Cartridges",
+      "tags": [
+        "water-filter"
+      ]
+    },
+    {
+      "keywords": [
+        "earring",
+        "earrings",
+        "k\u00fcpe"
+      ],
+      "category": "Apparel & Accessories > Jewelry > Earrings",
+      "tags": [
+        "jewelry"
+      ]
+    },
+    {
+      "keywords": [
+        "clock",
+        "epoxy",
+        "resin",
+        "wall clock"
+      ],
+      "category": "Home & Garden > Decor > Clocks",
+      "tags": [
+        "home-decor"
+      ]
+    }
+  ],
+  "fallback_category": "Miscellaneous"
+}
