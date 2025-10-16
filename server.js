@@ -71,4 +71,17 @@ async function updateShopifyProduct(productId, standardProductType, extraTags = 
 }
 
 app.listen(PORT, () => console.log(`Auto Categorizer listening on :${PORT}`))
+// ---- BACKFILL HTTP TETIKLEYICI ----
+import { spawn } from 'child_process'
+
+app.all('/admin/backfill', (req, res) => {
+  const token = (req.query?.token || req.headers['x-backfill-token'] || '').toString()
+  if (!process.env.BACKFILL_TOKEN || token !== process.env.BACKFILL_TOKEN) {
+    return res.status(401).send('unauthorized')
+  }
+  // Arka planda başlat
+  const child = spawn('node', ['tools/bulk_backfill.js'], { stdio: 'inherit' })
+  res.status(200).send('backfill started')
+})
+// ---- /BACKFILL HTTP TETIKLEYICI ----
 add backfill endpoint
