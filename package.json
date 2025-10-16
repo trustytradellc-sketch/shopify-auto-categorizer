@@ -1,22 +1,33 @@
 {
   "name": "shopify-auto-categorizer",
-  "version": "1.1.0",
+  "version": "1.0.0",
+  "description": "Automatic product categorizer and SEO optimizer for Shopify — hybrid (AI + rule-based).",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "build": "echo 'no build step'",
-    "dev": "NODE_ENV=development node server.js"
+    "dev": "NODE_ENV=development node server.js",
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
-    "axios": "^1.7.7",
-    "body-parser": "^1.20.3",
+    "axios": "^1.7.0",
     "bottleneck": "^2.19.5",
-    "crypto-js": "^4.2.0",
+    "crypto": "^1.0.1",
     "express": "^4.19.2",
-    "openai": "^4.60.1",
-    "pino": "^9.3.2",
-    "pino-pretty": "^11.2.2",
-    "raw-body": "^2.5.2"
-  }
+    "get-raw-body": "^2.5.2",
+    "openai": "^4.0.0",
+    "pino": "^9.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "author": "Hamza Dumlu (TrustyTrade LLC)",
+  "keywords": [
+    "shopify",
+    "ai",
+    "seo",
+    "autocategorizer",
+    "automation",
+    "trustytrade"
+  ]
 }
