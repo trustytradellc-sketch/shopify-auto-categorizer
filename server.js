@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import { spawn } from 'child_process'
 import express from 'express'
 import bodyParser from 'body-parser'
 import crypto from 'crypto'
@@ -12,7 +13,18 @@ const PORT = process.env.PORT || 3000
 app.use('/webhooks/shopify/products', bodyParser.raw({ type: 'application/json' }))
 
 app.get('/', (_req, res) => res.send('Shopify Auto Categorizer is running'))
-
+// ---- BACKFILL HTTP TETIKLEYICI ----
+// Hem GET hem POST'tan çalışsın (tarayıcıdan çağırabil diye):
+app.all('/admin/backfill', (req, res) => {
+  const token = (req.query?.token || req.headers['x-backfill-token'] || '').toString()
+  if (!process.env.BACKFILL_TOKEN || token !== process.env.BACKFILL_TOKEN) {
+    return res.status(401).send('unauthorized')
+  }
+  // Arka planda başlat
+  const child = spawn('node', ['tools/bulk_backfill.js'], { stdio: 'inherit' })
+  res.status(200).send('backfill started')
+})
+// ---- /BACKFILL HTTP TETIKLEYICI ----
 app.post('/webhooks/shopify/products', async (req, res) => {
   if (!verifyShopifyWebhook(req)) {
     return res.status(401).send('Invalid HMAC')
@@ -59,3 +71,4 @@ async function updateShopifyProduct(productId, standardProductType, extraTags = 
 }
 
 app.listen(PORT, () => console.log(`Auto Categorizer listening on :${PORT}`))
+add backfill endpoint
