@@ -30,8 +30,15 @@ npm run dev           # localhost:3000
 ```
 Geriye dönük güncelleme (28k ürün için parça parça işler):
 ```bash
-npm run backfill
+npm run backfill           # tüm ürünleri işler
+# veya gelişmiş kullanım:
+node backfill.js --since=2024-01-01 --limit=500 --dry-run
 ```
+
+CLI parametreleri:
+- `--since=ISO_TARIH`: Belirtilen tarihten sonra güncellenen ürünleri çeker.
+- `--limit=SAYI`: Test amaçlı ilk N üründe durur.
+- `--dry-run`: Shopify'a yazmadan sadece kategorileri hesaplar.
 
 ## Kendi kuralların
 - `mapping.json` içindeki `rules` alanına **anahtar kelime → kategori** eşleşmelerini ekle.
