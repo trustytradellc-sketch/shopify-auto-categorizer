@@ -35,6 +35,17 @@ npm install
 cp .env.example .env  # değerleri doldur
 npm run dev           # localhost:3000
 ```
+
+### En güncel ZIP arşivini indir
+
+Server'ı çalıştırdıktan sonra aşağıdaki URL'den her seferinde taze bir proje arşivi indirebilirsin:
+
+```
+https://<SUNUCUN>/downloads/shopify-auto-categorizer.zip
+```
+
+`<SUNUCUN>` değerini kullandığın tünel/adresle değiştir (ör. launchd ile açtığın iMac servisi veya `ngrok` URL'i). Endpoint arşivi akış olarak gönderir; bu sayede telefonundan ya da ChatGPT içinden direkt olarak indir butonu şeklinde kullanabilirsin.
+
 Geriye dönük güncelleme (komut `scripts/backfill.js` ile aynı mantığı paylaşır):
 ```bash
 # tüm ürünler

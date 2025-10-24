@@ -5,6 +5,9 @@ import crypto from 'crypto';
 import getRawBody from 'raw-body';
 import { OpenAI } from 'openai';
 import pino from 'pino';
+import archiver from 'archiver';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 import { createShopifyService } from './lib/shopify.js';
 import { createCategorizer } from './lib/categorizer.js';
@@ -47,6 +50,10 @@ const openai = OPENAI_API_KEY
   ? new OpenAI({ apiKey: OPENAI_API_KEY, timeout: Number(OPENAI_API_TIMEOUT) * 1000 })
   : null;
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const projectRoot = __dirname;
+
 const shopify = createShopifyService({
   shop: SHOPIFY_SHOP,
   accessToken: SHOPIFY_ACCESS_TOKEN,
@@ -84,6 +91,39 @@ app.use((req, res, next) => {
 });
 
 app.get('/health', (_, res) => res.json({ ok: true }));
+
+app.get('/downloads/shopify-auto-categorizer.zip', (req, res) => {
+  const archive = archiver('zip', { zlib: { level: 9 } });
+
+  res.setHeader('Content-Type', 'application/zip');
+  res.setHeader('Content-Disposition', 'attachment; filename="shopify-auto-categorizer.zip"');
+
+  archive.on('error', error => {
+    log.error({ err: error?.message }, 'Archive stream error');
+    if (!res.headersSent) {
+      res.status(500).send('archive error');
+    } else {
+      res.end();
+    }
+  });
+
+  archive.pipe(res);
+  archive.glob('**/*', {
+    cwd: projectRoot,
+    dot: true,
+    ignore: ['node_modules/**', '.git/**', 'shopify-auto-categorizer.zip', 'tmp/**']
+  });
+
+  res.on('close', () => {
+    if (!res.writableEnded) {
+      archive.abort();
+    }
+  });
+
+  archive.finalize().catch(error => {
+    log.error({ err: error?.message }, 'Archive finalize error');
+  });
+});
 
 app.post('/backfill', express.json(), async (req, res) => {
   if (!BACKFILL_TOKEN || req.get('X-Backfill-Token') !== BACKFILL_TOKEN) {
