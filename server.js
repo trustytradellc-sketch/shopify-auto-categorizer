@@ -9,11 +9,13 @@ import pino from 'pino';
 import { createShopifyService } from './lib/shopify.js';
 import { createCategorizer } from './lib/categorizer.js';
 import { createProductProcessor } from './lib/processor.js';
+import { createCommandHandler } from './lib/commands.js';
 
 const {
   PORT = 10000,
   NODE_ENV = 'production',
   BACKFILL_TOKEN = '',
+  COMMAND_TOKEN = '',
   LANG = 'en',
   OPENAI_API_KEY,
   OPENAI_API_TIMEOUT = '180',
@@ -53,6 +55,7 @@ const shopify = createShopifyService({
 
 const categorizer = createCategorizer({ lang: LANG, openai, logger: log });
 const processor = createProductProcessor({ shopify, categorizer, lang: LANG, logger: log });
+const commandHandler = createCommandHandler({ shopify, processor, categorizer, openai, logger: log });
 
 function verifyShopifyHmac(req) {
   const hmac = req.get('X-Shopify-Hmac-Sha256') || '';
@@ -92,6 +95,23 @@ app.post('/backfill', express.json(), async (req, res) => {
   log.info({ count: products.length, since }, 'Backfill fetched products');
   for (const product of products) {
     await processor.processProduct(product, 'backfill');
+  }
+});
+
+app.post('/commands', async (req, res) => {
+  if (!COMMAND_TOKEN) {
+    return res.status(503).json({ error: 'COMMAND_TOKEN not configured' });
+  }
+  const supplied = req.get('X-Command-Token') || req.body?.token;
+  if (supplied !== COMMAND_TOKEN) {
+    return res.status(401).json({ error: 'unauthorized' });
+  }
+  try {
+    const result = await commandHandler.handle(req.body || {});
+    res.json(result);
+  } catch (error) {
+    log.error({ err: error?.message }, 'Command handler error');
+    res.status(400).json({ error: error?.message || 'Command failed' });
   }
 });
 

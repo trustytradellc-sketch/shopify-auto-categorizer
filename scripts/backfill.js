@@ -68,11 +68,9 @@ async function run() {
 
   let processed = 0;
   for (const product of products) {
-    if (dryRun) {
-      const classification = await categorizer.categorize(product);
-      log.info({ id: product.id, category: classification.category_path, method: classification.method }, 'Dry-run classification');
-    } else {
-      await processor.processProduct(product, 'backfill-cli');
+    const result = await processor.processProduct(product, 'backfill-cli', { dryRun });
+    if (dryRun && result?.classification) {
+      log.info({ id: product.id, category: result.classification.category_path, method: result.classification.method }, 'Dry-run classification');
     }
     processed += 1;
     if (processed % 25 === 0) {
