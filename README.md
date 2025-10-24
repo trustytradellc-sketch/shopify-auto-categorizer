@@ -24,6 +24,7 @@ Bu küçük uygulama, **Shopify mağazana eklenen her yeni ürünü** otomatik o
 
 ## Webhook ayarı
 - Shopify Admin → Settings → Notifications → Webhooks → **Products/create** → URL: `https://SUNUCUN/webhooks/shopify/products`
+- Aynı URL'ye ikinci bir webhook ekle (**Products/update** → `https://SUNUCUN/webhooks/shopify/products`)
 - Format: JSON
 - Secret: Uygulama sekretin (HMAC doğrulaması için).
 

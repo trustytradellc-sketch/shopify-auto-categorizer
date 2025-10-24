@@ -115,14 +115,62 @@ app.post('/commands', async (req, res) => {
   }
 });
 
+function queueProductProcessing(product, source, logContext) {
+  processor
+    .processProduct(product, source)
+    .catch(err =>
+      log.error({ id: product?.id, err: err?.message, ...logContext }, 'Async webhook error')
+    );
+}
+
+function parseProductFromRaw(req) {
+  try {
+    return JSON.parse(req.rawBody.toString());
+  } catch (error) {
+    log.error({ err: error?.message }, 'Failed to parse webhook payload');
+    return null;
+  }
+}
+
+app.post('/webhooks/shopify/products', async (req, res) => {
+  if (!verifyShopifyHmac(req)) {
+    return res.status(401).send('HMAC failed');
+  }
+
+  const topic = (req.get('X-Shopify-Topic') || '').toLowerCase();
+  const product = parseProductFromRaw(req);
+
+  if (!product) {
+    return res.status(400).send('invalid payload');
+  }
+
+  switch (topic) {
+    case 'products/create':
+      queueProductProcessing(product, 'webhook_create', { topic });
+      break;
+    case 'products/update':
+      queueProductProcessing(product, 'webhook_update', { topic });
+      break;
+    default:
+      log.warn({ topic }, 'Unhandled product webhook topic');
+      break;
+  }
+
+  res.status(200).send('ok');
+});
+
+// Legacy endpoints kept for backward compatibility with previously configured webhooks
 app.post('/webhooks/products_create', async (req, res) => {
   if (!verifyShopifyHmac(req)) {
     return res.status(401).send('HMAC failed');
   }
-  const product = JSON.parse(req.rawBody.toString());
-  processor
-    .processProduct(product, 'webhook_create')
-    .catch(err => log.error({ id: product?.id, err: err?.message }, 'Async webhook create error'));
+
+  const product = parseProductFromRaw(req);
+  if (!product) {
+    return res.status(400).send('invalid payload');
+  }
+
+  queueProductProcessing(product, 'webhook_create', { topic: 'products/create', legacy: true });
   res.status(200).send('ok');
 });
 
@@ -130,10 +178,13 @@ app.post('/webhooks/products_update', async (req, res) => {
   if (!verifyShopifyHmac(req)) {
     return res.status(401).send('HMAC failed');
   }
-  const product = JSON.parse(req.rawBody.toString());
-  processor
-    .processProduct(product, 'webhook_update')
-    .catch(err => log.error({ id: product?.id, err: err?.message }, 'Async webhook update error'));
+
+  const product = parseProductFromRaw(req);
+  if (!product) {
+    return res.status(400).send('invalid payload');
+  }
+
+  queueProductProcessing(product, 'webhook_update', { topic: 'products/update', legacy: true });
   res.status(200).send('ok');
 });
 
