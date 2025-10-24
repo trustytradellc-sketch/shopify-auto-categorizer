@@ -1,6 +1,7 @@
 {
   "rules": [
     {
+      "name": "Women's Perfume",
       "keywords": [
         "perfume",
         "eau de parfum",
@@ -8,69 +9,214 @@
         "parfum",
         "cologne",
         "delina",
-        "parfums de marly"
+        "parfums de marly",
+        "eau de toilette"
       ],
-      "category": "Health & Beauty > Personal Care > Perfume & Cologne",
-      "tags": [
-        "perfume",
-        "fragrance"
-      ]
+      "category": "Beauty > Fragrance > Women's Perfume",
+      "tags": ["perfume", "fragrance", "elegant"],
+      "confidence": 0.95
     },
     {
+      "name": "Face Serums",
       "keywords": [
         "serum",
         "retinol",
         "hyaluronic",
         "peptide",
+        "vitamin c",
+        "niacinamide",
+        "ampoule",
         "lancome",
         "elemis",
         "sk-ii",
         "sk ii",
         "image skincare",
-        "vital c",
-        "cream",
-        "moisturizer"
+        "vital c"
       ],
-      "category": "Health & Beauty > Personal Care > Skin Care",
-      "tags": [
-        "skin-care"
-      ]
+      "category": "Beauty > Skincare > Face Serums",
+      "tags": ["serum", "anti-aging", "skin-care"]
     },
     {
+      "name": "Face Moisturizers",
+      "keywords": [
+        "cream",
+        "moisturizer",
+        "hydrating",
+        "moisture",
+        "repair cream",
+        "night cream",
+        "day cream",
+        "face cream"
+      ],
+      "category": "Beauty > Skincare > Face Moisturizers",
+      "tags": ["moisturizer", "hydration", "skin-care"]
+    },
+    {
+      "name": "Cleansers",
+      "keywords": [
+        "cleanser",
+        "face wash",
+        "cleansing balm",
+        "makeup remover",
+        "micellar"
+      ],
+      "category": "Beauty > Skincare > Cleansers",
+      "tags": ["cleanser", "face wash"]
+    },
+    {
+      "name": "Face Masks",
+      "keywords": [
+        "mask",
+        "sheet mask",
+        "clay mask",
+        "mud mask",
+        "peel-off",
+        "overnight mask"
+      ],
+      "category": "Beauty > Skincare > Face Masks",
+      "tags": ["mask", "spa", "treatment"]
+    },
+    {
+      "name": "Sunscreens",
+      "keywords": [
+        "sunscreen",
+        "sun screen",
+        "spf",
+        "sunblock",
+        "uv protection"
+      ],
+      "category": "Beauty > Skincare > Sunscreens",
+      "tags": ["sunscreen", "spf", "uv-protection"],
+      "confidence": 0.93
+    },
+    {
+      "name": "Hair Care",
+      "keywords": [
+        "shampoo",
+        "conditioner",
+        "hair mask",
+        "hair oil",
+        "leave-in",
+        "styling cream",
+        "kerastase",
+        "olaplex"
+      ],
+      "category": "Beauty > Hair Care > Shampoo & Treatments",
+      "tags": ["hair-care", "shampoo", "treatment"]
+    },
+    {
+      "name": "Lip Makeup",
+      "keywords": [
+        "lipstick",
+        "lip gloss",
+        "lip balm",
+        "lip oil",
+        "lip tint"
+      ],
+      "category": "Beauty > Makeup > Lips",
+      "tags": ["lip", "makeup"]
+    },
+    {
+      "name": "Face Makeup",
+      "keywords": [
+        "foundation",
+        "concealer",
+        "primer",
+        "bb cream",
+        "cc cream",
+        "setting powder",
+        "blush"
+      ],
+      "category": "Beauty > Makeup > Face",
+      "tags": ["face", "makeup", "complexion"]
+    },
+    {
+      "name": "Eye Makeup",
+      "keywords": [
+        "mascara",
+        "eyeliner",
+        "eyeshadow",
+        "brow",
+        "brow gel",
+        "lash"
+      ],
+      "category": "Beauty > Makeup > Eyes",
+      "tags": ["eyes", "makeup"]
+    },
+    {
+      "name": "Body Care",
+      "keywords": [
+        "body lotion",
+        "body cream",
+        "body butter",
+        "body scrub",
+        "body wash",
+        "shower gel"
+      ],
+      "category": "Beauty > Bath & Body > Body Moisturizers",
+      "tags": ["body-care", "lotion"]
+    },
+    {
+      "name": "Water Filters",
       "keywords": [
         "filter",
         "everydrop",
         "water filter",
         "replacement filter",
+        "cartridge",
         "ice & water"
       ],
       "category": "Appliances > Water Filters & Filtration Systems > Water Filter Cartridges",
-      "tags": [
-        "water-filter"
-      ]
+      "tags": ["water-filter", "kitchen"]
     },
     {
+      "name": "Jewelry",
       "keywords": [
         "earring",
         "earrings",
-        "k\u00fcpe"
+        "necklace",
+        "bracelet",
+        "ring"
       ],
-      "category": "Apparel & Accessories > Jewelry > Earrings",
-      "tags": [
-        "jewelry"
-      ]
+      "category": "Apparel & Accessories > Jewelry > Fashion Jewelry",
+      "tags": ["jewelry", "accessories"],
+      "confidence": 0.88
     },
     {
+      "name": "Candles & Home Fragrance",
       "keywords": [
-        "clock",
-        "epoxy",
-        "resin",
-        "wall clock"
+        "candle",
+        "scented candle",
+        "soy candle",
+        "diffuser",
+        "reed diffuser"
       ],
-      "category": "Home & Garden > Decor > Clocks",
-      "tags": [
-        "home-decor"
-      ]
+      "category": "Home & Kitchen > Home Fragrance > Candles",
+      "tags": ["candle", "home-fragrance"]
+    },
+    {
+      "name": "Toys & Games",
+      "keywords": [
+        "toy",
+        "doll",
+        "lego",
+        "puzzle",
+        "game",
+        "board game"
+      ],
+      "category": "Toys & Games > Learning & Education",
+      "tags": ["toy", "kids"]
+    },
+    {
+      "name": "Automotive Gauges",
+      "keywords": [
+        "gauge",
+        "temperature gauge",
+        "hararet",
+        "tachometer"
+      ],
+      "category": "Automotive > Replacement Parts > Gauges",
+      "tags": ["automotive", "gauge"]
     }
   ],
   "fallback_category": "Miscellaneous"
