@@ -20,6 +20,7 @@ Bu küçük uygulama, **Shopify mağazana eklenen her yeni ürünü** otomatik o
 6. Uzaktan komutları güvene almak için `COMMAND_TOKEN` oluştur.
 7. Toplu iş tetiklemek için `BACKFILL_TOKEN` oluştur (opsiyonel, REST endpoint'i korur).
 8. Bu projeyi bir sunucuya (Vercel, Render, Fly.io, Railway, kendi VPS) deploy et.
+   - iMac üzerinde kalıcı olarak çalıştırmak istersen [macOS (iMac) Deployment Guide](docs/macos-setup.md) dokümanına bak.
 9. `.env` dosyası örneği için `.env.example`'a bak.
 
 ## Webhook ayarı
